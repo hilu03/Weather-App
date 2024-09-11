@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.15);
   margin-top: 200px;
   box-shadow: 
     rgba(0, 0, 0, 0.15) 0px 3px 5px,
@@ -12,7 +12,10 @@ body {
   padding: 30px;
   width: 400px;
   border-radius: 20px;
+  color: orangered;
+  font-weight: bold;
 }
+
 
 .search {
   margin-bottom: 20px;
@@ -76,5 +79,18 @@ button {
 .location-input,
 select {
   border-radius: 10px;
-  outline: none;
+  border: none;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.hide {
+  display: none;
+}
+
+.loading img {
+  width: 100px;
 }

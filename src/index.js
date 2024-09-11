@@ -7,6 +7,7 @@ const icons = importAllIcons(require.context('./icons', false, /.svg$/));
 const searchButton = document.querySelector(".search-button");
 const inputLocation = document.querySelector(".location-input");
 const degreeSelect = document.querySelector("#degree");
+const loading = document.querySelector(".loading");
 const result = document.querySelector(".result");
 
 searchButton.addEventListener("click", async () => {
@@ -16,6 +17,7 @@ searchButton.addEventListener("click", async () => {
   }
   else {    
     try {
+      addLoadingIcon();
       const json = await getData(location);
       const data = await processJson(json);
       document.querySelector("body").style.background = `url(${await getGif(data["icon"])}) no-repeat fixed center center / cover`;
@@ -25,8 +27,15 @@ searchButton.addEventListener("click", async () => {
     catch(e) {
       displayError(e);
     }
+    loading.classList.add("hide");
   }
 });
+
+function addLoadingIcon() {
+  result.innerHTML = "";
+  loading.classList.remove("hide");
+  document.querySelector("body").style.background = "none";
+}
 
 async function getGif(condition) {
   let response = await fetch(`//api.giphy.com/v1/gifs/translate?api_key=f0S3OQshNUs0ZdWgaQaYiBIqqwEuYK6D&s=${condition}`, {mode: 'cors'});
@@ -58,7 +67,7 @@ function displayResult(data, degreeUnit) {
   `
     <div class="left">
       <div class="location">${data["location"]}</div>
-      <div class="condition">${data["conditions"]}</div>
+      <div class="condition">${data["conditions"]}.</div>
       <div class="humidity">Humidity: ${data["humidity"]}%</div>
       <div class="wind">Wind speed: ${data["windspeed"]}km/h</div>
     </div>
