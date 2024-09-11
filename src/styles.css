@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  background-color: white;
+  margin-top: 200px;
+  box-shadow: 
+    rgba(0, 0, 0, 0.15) 0px 3px 5px,
+    rgba(0, 0, 0, 0.15) 0px -3px 5px;
+  padding: 30px;
+  width: 400px;
+  border-radius: 20px;
+}
+
+.search {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.icon {
+  width: 25px;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+}
+
+.temperature {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.temp-icon img {
+  width: 25px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+button,
+select,
+.location-input {
+  padding: 5px;
+}
+
+button {
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 20px;
+  padding: 5px;
+  border: 1px solid black;
+}
+
+.location-input,
+select {
+  border-radius: 10px;
+  outline: none;
+}
