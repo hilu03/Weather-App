@@ -25,9 +25,11 @@ searchButton.addEventListener("click", async () => {
       displayResult(data, degreeUnit);
     }
     catch(e) {
-      displayError(e);
+      displayError(e.message);
     }
-    loading.classList.add("hide");
+    finally {
+      loading.classList.add("hide");
+    }
   }
 });
 
@@ -39,11 +41,20 @@ function addLoadingIcon() {
 
 async function getGif(condition) {
   let response = await fetch(`//api.giphy.com/v1/gifs/translate?api_key=f0S3OQshNUs0ZdWgaQaYiBIqqwEuYK6D&s=${condition}`, {mode: 'cors'});
-  if (response.status !== 200) {
-    throw new Error("HTTP status " + response.status);
-  }
+  const code = response.status;
+  checkStatusCode(code);
   const json = await response.json();
   return json.data.images.original.url;
+}
+
+function checkStatusCode(code) {
+  if (code !== 200) {
+    console.log("HTTP status " + code);
+    if (code === 429) {
+      throw new Error("Oops! Too much request in hour :(. Try later!");
+    }
+    throw new Error("Oops! Location not found! :(");
+  }
 }
 
 function importAllIcons(r) {
@@ -89,16 +100,14 @@ function displayResult(data, degreeUnit) {
 }
 
 function displayError(e) {
-  const html = "-_- Location not found! :(";
-  result.innerHTML = html;
+  result.innerHTML = e;
   console.log(e);
 }
 
 async function getData(location) {
   let response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?key=AK7CDA3UGA9PB59F9RYJHRDTE&unitGroup=metric`, {mode: 'cors'});
-  if (response.status !== 200) {
-    throw new Error("HTTP status " + response.status);
-  }
+  const code = response.status;
+  checkStatusCode(code);
   return response.json();
 }
 
